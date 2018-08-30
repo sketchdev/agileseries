@@ -1,0 +1,224 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:300,400,700|Poppins:300,400,700|Source+Sans+Pro:300,400,700');
+@import url('https://fonts.googleapis.com/css?family=Ubuntu:300,400,700|Open+Sans:300,400,700');
+
+:root {
+  --page-max-width: 900px;
+  --color-text: #2b2b2b;
+  --color-primary: #195a88;
+  --color-border: lightgray;
+  --color-button-primary: #195a88;
+  --color-button-primary-text: white;
+  --color-button-default: lightgray;
+  --color-button-default-text: var(--color-text);
+  --color-danger: tomato;
+  --color-offwhite: #fbfbfb;
+  --color-pageheader: gray;
+  --font-default: 'Montserrat';
+}
+
+html {
+  box-sizing: border-box;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-default);
+  font-weight: 300;
+  text-align: center;
+  color: var(--color-text);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 1rem 0;
+  font-family: var(--font-default);
+  font-weight: 300;
+  line-height: 1em;
+}
+
+input, textarea, select, button {
+  font-family: var(--font-default);
+  font-weight: 300;
+  font-size: 1rem;
+  line-height: 1em;
+}
+
+a, a:active, a:visited {
+  color: var(--color-primary);
+}
+
+a, a:active, a:visited, a:hover {
+  text-decoration: none;
+}
+
+form label {
+  display: block;
+  margin-bottom: 0.3rem;
+}
+
+input, textarea, select {
+  display: block;
+  width: 100%;
+  padding: 0.8em;
+  border-radius: 4px;
+  border: 1px solid var(--color-border);
+  outline: 0;
+}
+
+.form-field {
+  margin-bottom: 1rem;
+}
+
+button,
+.button,
+a.button {
+  display: inline-block;
+  background: var(--color-button-default);
+  color: var(--color-button-default-text);
+  padding: 0.8rem 1.8rem;
+  border-radius: 4px;
+  border: 1px solid var(--color-border);
+  letter-spacing: 1px;
+  font-size: 1rem;
+  text-decoration: none;
+  font-weight: 400;
+  cursor: pointer;
+}
+
+button[type=submit], button.-primary, .button.-primary {
+  background: var(--color-button-primary);
+  color: var(--color-button-primary-text);
+  font-weight: 300;
+}
+
+button.-link, .button.-link {
+  background: transparent;
+  color: var(--color-primary);
+  font-weight: 300;
+  border: none;
+}
+
+.form-actions {
+  margin-top: 2rem;
+}
+
+.form-actions > button, .form-actions > a {
+  display: block;
+  margin-bottom: 0.5rem;
+  width: 100%;
+  text-align: center;
+}
+
+.scene-container {
+  margin: auto;
+}
+
+.scene-container.-slim {
+  max-width: 500px;
+}
+
+.danger {
+  color: var(--color-danger);
+}
+
+.page-back {
+  margin: 1rem 0;
+}
+
+.page-header {
+  margin: 1rem 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.page-header > h1, .page-header > div {
+  flex: 1 0 auto;
+}
+
+.page-header > h1 {
+  color: var(--color-pageheader);
+}
+
+.page-header > div {
+  text-align: right;
+}
+
+.page-header > div:empty {
+  display: none;
+}
+
+.app-header {
+  border-bottom: 1px solid var(--color-border);
+  padding: 1rem 0;
+}
+
+.inner {
+  margin: auto;
+  max-width: var(--page-max-width);
+  text-align: left;
+  padding: 0 1rem;
+}
+
+.app-header > .inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.app-header > .inner > .logo {
+  flex: 0 1 auto;
+  font-size: 1.8rem;
+  font-weight: 700;
+  letter-spacing: -1px;
+}
+
+.app-header > .inner > .nav {
+  text-align: right;
+  flex: 1 0 auto;
+}
+
+.app-header > .inner > .nav > nav > ul > li {
+  display: inline-block;
+  margin-left: 1rem;
+}
+
+.app-header > .inner > .nav > nav > ul > li > a {
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.project-listitem {
+  border: 1px solid var(--color-border);
+  width: 100%;
+  padding: 2rem 2rem 1rem 2rem;
+  margin: 0 0 1rem 0;
+  border-radius: 4px;
+}
+
+.project-listitem:hover {
+  background: var(--color-offwhite);
+}
+
+.project-listitem > .name {
+  font-size: 1.8rem;
+}
+
+.project-listitem > .company {
+  padding: 0.5rem 0;
+}
+
+.project-listitem > .footer {
+  padding: 1rem 0 0 0;
+  margin-top: 2rem;
+  border-top: 1px solid var(--color-border);
+}
+
+.project-listitem > .footer > a {
+  display: inline-block;
+  margin-right: 0.8rem;
+}
