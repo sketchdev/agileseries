@@ -1,8 +1,9 @@
 import React from 'react';
 import Progress from '../components/Progress';
 import { Redirect } from 'react-router-dom';
-import { UnauthorizedError } from '../lib/Errors';
+import { NotFoundError, UnauthorizedError } from '../lib/Errors';
 import API from '../lib/API';
+import NotFound from '../components/NotFound';
 
 const READY = 0;
 const PENDING = 1;
@@ -19,6 +20,8 @@ export default function withFormScene(WrappedComponent, title, fields, fetcher, 
         fields,
         errors: {},
         status: READY,
+        unauthorized: false,
+        notfound: false,
       };
     }
 
@@ -27,12 +30,17 @@ export default function withFormScene(WrappedComponent, title, fields, fetcher, 
         (async () => {
           try {
             this.setState({ status: PENDING });
-            const fields = await fetcher.call({});
+            const { errors, data: fields } = await fetcher.call({}, this.props.match.params);
+            if (errors) {
+              this.setState({ errors, status: ERROR });
+            }
             this.setState({ status: READY, fields });
           } catch (err) {
             console.error(err);
             if (err instanceof UnauthorizedError) {
               this.setState({ unauthorized: true });
+            } else if (err instanceof NotFoundError) {
+              this.setState({ notfound: true });
             } else {
               alert(err);
             }
@@ -89,6 +97,9 @@ export default function withFormScene(WrappedComponent, title, fields, fetcher, 
     };
 
     render() {
+      if (this.state.notfound) {
+        return <NotFound/>;
+      }
       switch (this.state.status) {
         case PENDING:
           return <Progress/>;

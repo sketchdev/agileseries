@@ -15,7 +15,7 @@ const ProjectList = props => {
   }
   return (
     <div>
-      {props.projects.map(project => <ProjectListItem key={project.id} name={project.name} company={project.company}/>)}
+      {props.projects.map(project => <ProjectListItem key={project.id} id={project.id} name={project.name} company={project.company}/>)}
     </div>
   );
 };

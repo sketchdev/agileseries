@@ -8,14 +8,15 @@ const ProjectListItem = props => {
       <div className={'name'}>{props.name}</div>
       <div className={'company'}>{props.company}</div>
       <div className={'footer'}>
-        <Link to={`/project/edit/${props.id}`}>Edit</Link>
-        <Link className={'danger'} to={`/project/delete/${props.id}`}>Delete</Link>
+        <Link to={`/projects/${props.id}/edit`}>Edit</Link>
+        <Link className={'danger'} to={`/projects/${props.id}/delete`}>Delete</Link>
       </div>
     </div>
   );
 };
 
 ProjectListItem.propTypes = {
+  id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   company: PropTypes.string.isRequired,
 };

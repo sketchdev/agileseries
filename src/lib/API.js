@@ -1,5 +1,5 @@
 import 'whatwg-fetch';
-import { UnauthorizedError } from './Errors';
+import { NotFoundError, UnauthorizedError } from './Errors';
 
 const WS_ROOT = 'http://localhost:3001';
 
@@ -15,6 +15,8 @@ const call = async (method, path, content, token) => {
   const resp = await fetch(`${WS_ROOT}${path}`, fetchOptions);
   if (resp.status === 401) {
     throw new UnauthorizedError();
+  } else if (resp.status === 404) {
+    throw new NotFoundError();
   }
   const json = await resp.text();
   let data = json ? JSON.parse(json) : undefined;
@@ -79,10 +81,21 @@ const API = {
     return await call('GET', '/projects', null, token);
   },
 
+  async findProjectById(id) {
+    const token = sessionStorage.getItem('token');
+    return await call('GET', '/projects/'+id, null, token);
+  },
+
   async createProject(fields) {
     const token = sessionStorage.getItem('token');
     const { name, company } = fields;
     return await call('POST', '/projects', { name, company }, token);
+  },
+
+  async updateProject(fields) {
+    const token = sessionStorage.getItem('token');
+    const { id, name, company } = fields;
+    return await call('PUT', '/projects/'+id, { name, company }, token);
   },
 
 };

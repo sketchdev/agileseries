@@ -11,6 +11,7 @@ import ProjectNewScene from './scenes/ProjectNewScene';
 import ErrorBoundary from './components/ErrorBoundry';
 import Navigation from './components/Navigation';
 import LogoutScene from './scenes/LogoutScene';
+import ProjectEditScene from './scenes/ProjectEditScene';
 
 class App extends React.Component {
   render() {
@@ -38,6 +39,7 @@ class App extends React.Component {
                   <Route exact path="/confirm" component={ConfirmScene}/>
                   <PrivateRoute exact path="/projects" component={ProjectListScene}/>
                   <PrivateRoute exact path="/projects/new" component={ProjectNewScene}/>
+                  <PrivateRoute exact path="/projects/:id/edit" component={ProjectEditScene}/>
                   <Route component={NotFound}/>
                 </Switch>
               </div>
