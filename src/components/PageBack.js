@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 const PageBack = props => {
   return (
     <div className={'page-back'}>
-      <Link to={props.to}>&larr; props.title</Link>
+      <Link to={props.to}>&larr; {props.title}</Link>
     </div>
   );
 };

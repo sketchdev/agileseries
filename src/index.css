@@ -129,6 +129,11 @@ button.-link, .button.-link {
   margin: 1rem 0;
 }
 
+.page-back > a {
+  text-transform: uppercase;
+  font-weight: 400;
+}
+
 .page-header {
   margin: 1rem 0;
   display: flex;
