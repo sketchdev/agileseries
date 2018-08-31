@@ -12,6 +12,11 @@ import ErrorBoundary from './components/ErrorBoundry';
 import Navigation from './components/Navigation';
 import LogoutScene from './scenes/LogoutScene';
 import ProjectEditScene from './scenes/ProjectEditScene';
+import ProjectOpenScene from './scenes/ProjectOpenScene';
+import withLookup from './hocs/withLookup';
+import ReleaseFormScene from './scenes/ReleaseFormScene';
+import API from './lib/API';
+import ReleaseDeleteScene from './scenes/ReleaseDeleteScene';
 
 class App extends React.Component {
   render() {
@@ -37,9 +42,21 @@ class App extends React.Component {
                   <Route exact path="/logout" component={LogoutScene}/>
                   <Route exact path="/register" component={RegisterScene}/>
                   <Route exact path="/confirm" component={ConfirmScene}/>
+
                   <PrivateRoute exact path="/projects" component={ProjectListScene}/>
                   <PrivateRoute exact path="/projects/new" component={ProjectNewScene}/>
                   <PrivateRoute exact path="/projects/:id/edit" component={ProjectEditScene}/>
+                  <PrivateRoute exact path="/projects/:id/open" component={withLookup(ProjectOpenScene, props => {
+                    return Promise.all([
+                      API.findProjectById(props.match.params.id),
+                      API.findReleasesByProjectId(props.match.params.id)
+                    ]);
+                  })}/>
+
+                  <PrivateRoute exact path="/releases/new" component={ReleaseFormScene}/>
+                  <PrivateRoute exact path="/releases/:id/edit" component={withLookup(ReleaseFormScene, props => API.findReleaseById(props.match.params.id))}/>
+                  <PrivateRoute exact path="/releases/:id/delete" component={withLookup(ReleaseDeleteScene, props => API.findReleaseById(props.match.params.id))}/>
+
                   <Route component={NotFound}/>
                 </Switch>
               </div>

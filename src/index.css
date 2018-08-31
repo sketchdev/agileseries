@@ -1,22 +1,26 @@
-@import url('https://fonts.googleapis.com/css?family=Montserrat:300,400,700|Poppins:300,400,700|Source+Sans+Pro:300,400,700');
-@import url('https://fonts.googleapis.com/css?family=Ubuntu:300,400,700|Open+Sans:300,400,700');
+@import url('https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700|Poppins:300,400,700|Source+Sans+Pro:300,400,700');
+@import url('https://fonts.googleapis.com/css?family=Ubuntu:300,400,700|Open+Sans:300,400,500,600,700|Lato:300,400,500,600,700');
 
 :root {
   --page-max-width: 900px;
   --color-text: #2b2b2b;
   --color-primary: #195a88;
+  --color-gray: gray;
   --color-border: lightgray;
   --color-button-primary: #195a88;
   --color-button-primary-text: white;
   --color-button-default: lightgray;
   --color-button-default-text: var(--color-text);
   --color-danger: tomato;
+  --color-danger-text: white;
   --color-offwhite: #fbfbfb;
   --color-pageheader: gray;
-  --font-default: 'Montserrat';
+  --font-default: 'Lato', "helvetica neue",helvetica,arial,sans-serif;
 }
 
 html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   box-sizing: border-box;
 }
 
@@ -28,7 +32,6 @@ body {
   margin: 0;
   padding: 0;
   font-family: var(--font-default);
-  font-weight: 300;
   text-align: center;
   color: var(--color-text);
 }
@@ -36,13 +39,11 @@ body {
 h1, h2, h3, h4, h5, h6 {
   margin: 1rem 0;
   font-family: var(--font-default);
-  font-weight: 300;
   line-height: 1em;
 }
 
 input, textarea, select, button {
   font-family: var(--font-default);
-  font-weight: 300;
   font-size: 1rem;
   line-height: 1em;
 }
@@ -85,20 +86,23 @@ a.button {
   letter-spacing: 1px;
   font-size: 1rem;
   text-decoration: none;
-  font-weight: 400;
+  font-weight: 700;
   cursor: pointer;
 }
 
 button[type=submit], button.-primary, .button.-primary {
   background: var(--color-button-primary);
   color: var(--color-button-primary-text);
-  font-weight: 300;
+}
+
+button[type=submit].-danger, button.-danger, .button.-danger {
+  background: var(--color-danger);
+  color: var(--color-danger-text);
 }
 
 button.-link, .button.-link {
   background: transparent;
   color: var(--color-primary);
-  font-weight: 300;
   border: none;
 }
 
@@ -121,7 +125,10 @@ button.-link, .button.-link {
   max-width: 500px;
 }
 
-.danger {
+.danger,
+.danger:active,
+.danger:visited,
+.danger:hover {
   color: var(--color-danger);
 }
 
@@ -131,7 +138,6 @@ button.-link, .button.-link {
 
 .page-back > a {
   text-transform: uppercase;
-  font-weight: 400;
 }
 
 .page-header {
@@ -210,11 +216,14 @@ button.-link, .button.-link {
 }
 
 .project-listitem > .name {
-  font-size: 1.8rem;
+  font-size: 2rem;
+  font-weight: 700;
 }
 
 .project-listitem > .company {
-  padding: 0.5rem 0;
+  font-size: 1.2rem;
+  padding: 0.25rem 0;
+  color: var(--color-gray);
 }
 
 .project-listitem > .footer {

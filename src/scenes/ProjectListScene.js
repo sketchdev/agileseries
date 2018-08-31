@@ -3,6 +3,7 @@ import ProjectList from '../components/ProjectList';
 import API from '../lib/API';
 import { UnauthorizedError } from '../lib/Errors';
 import { Link, Redirect } from 'react-router-dom';
+import PageHeader from '../components/PageHeader';
 
 class ProjectListScene extends Component {
 
@@ -35,12 +36,9 @@ class ProjectListScene extends Component {
     }
     return (
       <div>
-        <div className={'page-header'}>
-          <h1>Projects</h1>
-          <div>
-            <Link className={'button -primary'} to={'/projects/new'}>Create a project</Link>
-          </div>
-        </div>
+        <PageHeader title={'Projects'}>
+          <Link className={'button -primary'} to={'/projects/new'}>Create a project</Link>
+        </PageHeader>
         <ProjectList projects={this.state.projects}/>
       </div>
     )

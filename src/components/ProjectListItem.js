@@ -8,6 +8,7 @@ const ProjectListItem = props => {
       <div className={'name'}>{props.name}</div>
       <div className={'company'}>{props.company}</div>
       <div className={'footer'}>
+        <Link to={`/projects/${props.id}/open`}>Open</Link>
         <Link to={`/projects/${props.id}/edit`}>Edit</Link>
         <Link className={'danger'} to={`/projects/${props.id}/delete`}>Delete</Link>
       </div>

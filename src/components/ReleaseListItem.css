@@ -1,0 +1,33 @@
+.release-listitem {
+  border: 1px solid var(--color-border);
+  width: 100%;
+  padding: 2rem 2rem 1rem 2rem;
+  margin: 0 0 1rem 0;
+  border-radius: 4px;
+}
+
+.release-listitem:hover {
+  background: var(--color-offwhite);
+}
+
+.release-listitem > .name {
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.release-listitem > .company {
+  font-size: 1.2rem;
+  padding: 0.25rem 0;
+  color: var(--color-gray);
+}
+
+.release-listitem > .footer {
+  padding: 1rem 0 0 0;
+  margin-top: 2rem;
+  border-top: 1px solid var(--color-border);
+}
+
+.release-listitem > .footer > a {
+  display: inline-block;
+  margin-right: 0.8rem;
+}

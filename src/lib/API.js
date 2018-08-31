@@ -95,7 +95,34 @@ const API = {
   async updateProject(fields) {
     const token = sessionStorage.getItem('token');
     const { id, name, company } = fields;
-    return await call('PUT', '/projects/'+id, { name, company }, token);
+    return await call('PATCH', '/projects/'+id, { name, company }, token);
+  },
+
+  async createRelease(fields) {
+    const token = sessionStorage.getItem('token');
+    const { projectId, name, notes } = fields;
+    return await call('POST', '/releases', { projectId, name, notes }, token);
+  },
+
+  async updateRelease(fields) {
+    const token = sessionStorage.getItem('token');
+    const { id, name, notes } = fields;
+    return await call('PATCH', '/releases/'+id, { name, notes }, token);
+  },
+
+  async findReleaseById(id) {
+    const token = sessionStorage.getItem('token');
+    return await call('GET', `/releases/${id}`, null, token);
+  },
+
+  async findReleasesByProjectId(projectId) {
+    const token = sessionStorage.getItem('token');
+    return await call('GET', `/releases?projectId=${projectId}`, null, token);
+  },
+
+  async deleteReleaseById(id) {
+    const token = sessionStorage.getItem('token');
+    return await call('DELETE', `/releases/${id}`, null, token);
   },
 
 };
