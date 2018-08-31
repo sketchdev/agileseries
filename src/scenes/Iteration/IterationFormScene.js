@@ -1,6 +1,6 @@
-import IterationForm from '../components/IterationForm';
-import API from '../lib/API';
-import withForm from '../hocs/withForm';
+import IterationForm from '../../components/IterationForm';
+import API from '../../lib/API';
+import withForm from '../../hocs/withForm';
 import validator from 'validator';
 
 const fields = (props) => {

@@ -1,6 +1,6 @@
-import ReleaseForm from '../components/ReleaseForm';
-import API from '../lib/API';
-import withForm from '../hocs/withForm';
+import ReleaseForm from '../../components/ReleaseForm';
+import API from '../../lib/API';
+import withForm from '../../hocs/withForm';
 import validator from 'validator';
 
 const fields = (props) => {

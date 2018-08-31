@@ -86,6 +86,13 @@ const API = {
     return await call('GET', '/projects/'+id, null, token);
   },
 
+  async findProjectByIdWithReleases(id) {
+    return Promise.all([
+      API.findProjectById(id),
+      API.findReleasesByProjectId(id)
+    ]);
+  },
+
   async createProject(fields) {
     const token = sessionStorage.getItem('token');
     const { name, company } = fields;
@@ -108,6 +115,13 @@ const API = {
     const token = sessionStorage.getItem('token');
     const { id, name, notes } = fields;
     return await call('PATCH', '/releases/'+id, { name, notes }, token);
+  },
+
+  async findReleaseByIdWithIterations(id) {
+    return Promise.all([
+      API.findReleaseById(id),
+      API.findIterationsByReleaseId(id)
+    ]);
   },
 
   async findReleaseById(id) {

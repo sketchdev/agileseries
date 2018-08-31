@@ -1,6 +1,22 @@
-import withFormScene from '../hocs/withFormScene';
 import LoginForm from '../components/LoginForm';
 import API from '../lib/API';
 import { allFieldsRequired } from '../lib/Validation';
+import withForm from '../hocs/withForm';
 
-export default withFormScene(LoginForm, 'Log in', { email: null, password: null }, null, allFieldsRequired, API.authenticate, '/projects');
+const fields = (props) => {
+  return { email: null, password: null };
+};
+
+const successPath = (props) => {
+  return '/projects';
+};
+
+const submit = (props, fields) => {
+  return API.authenticate(fields);
+};
+
+const title = (props) => {
+  return 'Log in';
+};
+
+export default withForm(LoginForm, title, fields, allFieldsRequired, submit, successPath);

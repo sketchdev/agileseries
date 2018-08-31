@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import ProjectList from '../components/ProjectList';
-import API from '../lib/API';
-import { UnauthorizedError } from '../lib/Errors';
+import ProjectList from '../../components/ProjectList';
+import API from '../../lib/API';
+import { UnauthorizedError } from '../../lib/Errors';
 import { Link, Redirect } from 'react-router-dom';
-import PageHeader from '../components/PageHeader';
+import PageHeader from '../../components/PageHeader';
 
 class ProjectListScene extends Component {
 

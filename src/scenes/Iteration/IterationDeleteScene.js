@@ -1,6 +1,6 @@
-import API from '../lib/API';
-import withForm from '../hocs/withForm';
-import IterationDelete from '../components/IterationDelete';
+import API from '../../lib/API';
+import withForm from '../../hocs/withForm';
+import IterationDelete from '../../components/IterationDelete';
 
 const fields = (props) => {
   return props.lookup.data;

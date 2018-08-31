@@ -1,9 +1,13 @@
-import withFormScene from '../hocs/withFormScene';
 import RegisterForm from '../components/RegisterForm';
 import validator from 'validator';
 import API from '../lib/API';
+import withForm from '../hocs/withForm';
 
-const validate = async (fields) => {
+const fields = (props) => {
+  return { email: null, password: null, passwordConfirmation: null };
+};
+
+const validate = (fields) => {
   const errors = {};
   for (const field of Object.keys(fields)) {
     if (validator.isEmpty((fields[field] || '').toString())) {
@@ -17,4 +21,16 @@ const validate = async (fields) => {
   return errors;
 };
 
-export default withFormScene(RegisterForm, 'Register', { email: null, password: null, passwordConfirmation: null }, null, validate, API.register, '/confirm');
+const successPath = (props) => {
+  return '/confirm';
+};
+
+const submit = (props, fields) => {
+  return API.register(fields);
+};
+
+const title = (props) => {
+  return 'Register';
+};
+
+export default withForm(RegisterForm, title, fields, validate, submit, successPath);
