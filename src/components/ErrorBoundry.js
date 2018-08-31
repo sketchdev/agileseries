@@ -8,6 +8,7 @@ class ErrorBoundary extends React.Component {
   }
 
   componentDidCatch(error, info) {
+    // TODO: ACTUALLY DO SOMETHING HELPFUL
     console.log('cdc#error', error);
     console.log('cdc#info', info);
     // Display fallback UI

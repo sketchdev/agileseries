@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
+// TODO: DO SOMETHING HELPFUL
+
 class NotFound extends Component {
   render() {
     return (

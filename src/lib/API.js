@@ -1,8 +1,10 @@
 import 'whatwg-fetch';
 import { NotFoundError, UnauthorizedError } from './Errors';
 
+// TODO: MAKE THIS AN ENV VAR
 const WS_ROOT = 'http://localhost:3001';
 
+// TODO: CLEAN THIS UP
 const call = async (method, path, content, token) => {
   const headers = { 'Content-Type': 'application/json' };
   if (token) {
@@ -34,6 +36,8 @@ const call = async (method, path, content, token) => {
     return {};
   }
 };
+
+// TODO: DRY UP MANY OF THE METHODS BELOW
 
 const API = {
 
