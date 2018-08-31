@@ -17,6 +17,9 @@ import withLookup from './hocs/withLookup';
 import ReleaseFormScene from './scenes/ReleaseFormScene';
 import API from './lib/API';
 import ReleaseDeleteScene from './scenes/ReleaseDeleteScene';
+import ReleaseOpen from './components/ReleaseOpen';
+import IterationFormScene from './scenes/IterationFormScene';
+import IterationDeleteScene from './scenes/IterationDeleteScene';
 
 class App extends React.Component {
   render() {
@@ -54,8 +57,22 @@ class App extends React.Component {
                   })}/>
 
                   <PrivateRoute exact path="/releases/new" component={ReleaseFormScene}/>
+                  <PrivateRoute exact path="/releases/:id/open" component={withLookup(props => {
+                    const { data: release } = props.lookup[0];
+                    const { data: iterations } = props.lookup[1];
+                    return <ReleaseOpen release={release} iterations={iterations}/>;
+                  }, props => {
+                    return Promise.all([
+                      API.findReleaseById(props.match.params.id),
+                      API.findIterationsByReleaseId(props.match.params.id)
+                    ]);
+                  })}/>
                   <PrivateRoute exact path="/releases/:id/edit" component={withLookup(ReleaseFormScene, props => API.findReleaseById(props.match.params.id))}/>
                   <PrivateRoute exact path="/releases/:id/delete" component={withLookup(ReleaseDeleteScene, props => API.findReleaseById(props.match.params.id))}/>
+
+                  <PrivateRoute exact path="/iterations/new" component={IterationFormScene}/>
+                  <PrivateRoute exact path="/iterations/:id/edit" component={withLookup(IterationFormScene, props => API.findIterationById(props.match.params.id))}/>
+                  <PrivateRoute exact path="/iterations/:id/delete" component={withLookup(IterationDeleteScene, props => API.findIterationById(props.match.params.id))}/>
 
                   <Route component={NotFound}/>
                 </Switch>

@@ -10,13 +10,13 @@ class ReleaseForm extends React.Component {
   render() {
     return (
       <div className={'scene-container -slim'}>
-        <PageBack to={`/projects/${this.props.fields.projectId}/open`} title={'Project'}/>
+        <PageBack to={`/releases/${this.props.fields.releaseId}/open`} title={'Release'}/>
         <PageHeader title={this.props.title}/>
-        <h2>Are you sure you want to delete this release?</h2>
+        <h2>Are you sure you want to delete this iteration?</h2>
         <form onSubmit={this.props.onSubmit}>
           <FormActions>
-            <button className={'-danger'} type={'submit'}>Yes, delete this release</button>
-            <Link className={'button'} to={`/projects/${this.props.fields.projectId}/open`}>Nevermind</Link>
+            <button className={'-danger'} type={'submit'}>Yes, delete this iteration</button>
+            <Link className={'button'} to={`/releases/${this.props.fields.releaseId}/open`}>Nevermind</Link>
           </FormActions>
         </form>
       </div>

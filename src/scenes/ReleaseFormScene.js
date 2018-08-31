@@ -31,7 +31,7 @@ const submit = (props, fields) => {
 };
 
 const title = (props) => {
-  return props.lookup ? 'New Release' : 'Edit Release';
+  return props.lookup ? 'Edit Release' : 'New Release';
 };
 
 export default withForm(ReleaseForm, title, fields, validate, submit, successPath);

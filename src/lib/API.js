@@ -125,6 +125,33 @@ const API = {
     return await call('DELETE', `/releases/${id}`, null, token);
   },
 
+  async createIteration(fields) {
+    const token = sessionStorage.getItem('token');
+    const { releaseId, name, notes } = fields;
+    return await call('POST', '/iterations', { releaseId, name, notes }, token);
+  },
+
+  async updateIteration(fields) {
+    const token = sessionStorage.getItem('token');
+    const { id, name, notes } = fields;
+    return await call('PATCH', `/iterations/${id}`, { name, notes }, token);
+  },
+
+  async findIterationById(id) {
+    const token = sessionStorage.getItem('token');
+    return await call('GET', `/iterations/${id}`, null, token);
+  },
+
+  async findIterationsByReleaseId(releaseId) {
+    const token = sessionStorage.getItem('token');
+    return await call('GET', `/iterations?releaseId=${releaseId}`, null, token);
+  },
+
+  async deleteIterationById(id) {
+    const token = sessionStorage.getItem('token');
+    return await call('DELETE', `/iterations/${id}`, null, token);
+  },
+
 };
 
 export default API;
