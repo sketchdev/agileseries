@@ -1,4 +1,4 @@
-import IterationForm from '../../components/IterationForm';
+import IterationForm from '../../components/Iteration/IterationForm';
 import API from '../../lib/API';
 import withForm from '../../hocs/withForm';
 import validator from 'validator';

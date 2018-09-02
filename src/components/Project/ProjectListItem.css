@@ -1,0 +1,35 @@
+.project-listitem {
+  display: block;
+  border: 1px solid var(--color-border);
+  width: 100%;
+  padding: 2rem 2rem 1rem 2rem;
+  margin: 0 0 1rem 0;
+  border-radius: 4px;
+}
+
+.project-listitem:hover {
+  background: var(--color-offwhite);
+}
+
+.project-listitem > .body > .name {
+  font-size: 2rem;
+  font-weight: 400;
+}
+
+.project-listitem > .body > .company {
+  font-size: 1.2rem;
+  padding: 0.25rem 0;
+  color: var(--color-gray);
+}
+
+.project-listitem > .footer {
+  padding: 1rem 0 0 0;
+  margin-top: 2rem;
+  border-top: 1px solid var(--color-border);
+}
+
+.project-listitem > .footer > a {
+  display: inline-block;
+  margin-right: 0.8rem;
+  font-weight: 400;
+}

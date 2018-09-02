@@ -1,6 +1,6 @@
 import API from '../../lib/API';
 import withForm from '../../hocs/withForm';
-import ReleaseDelete from '../../components/ReleaseDelete';
+import ReleaseDelete from '../../components/Release/ReleaseDelete';
 
 const fields = (props) => {
   return props.lookup.data;

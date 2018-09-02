@@ -4,37 +4,56 @@ import { NotFoundError, UnauthorizedError } from './Errors';
 // TODO: MAKE THIS AN ENV VAR
 const WS_ROOT = 'http://localhost:3001';
 
-// TODO: CLEAN THIS UP
-const call = async (method, path, content, token) => {
+const buildHeaders = () => {
   const headers = { 'Content-Type': 'application/json' };
+  const token = sessionStorage.getItem('token');
   if (token) {
     headers.Authorization = `Bearer ${token}`;
   }
+  return headers;
+};
+
+const buildFetchOptions = (method, headers, content) => {
   let fetchOptions = { method, headers };
   if (content) {
     fetchOptions.body = JSON.stringify(content);
   }
-  const resp = await fetch(`${WS_ROOT}${path}`, fetchOptions);
+  return fetchOptions;
+};
+
+const throwForKnownErrors = (resp) => {
   if (resp.status === 401) {
     throw new UnauthorizedError();
   } else if (resp.status === 404) {
     throw new NotFoundError();
   }
+};
+
+const getData = async (resp) => {
   const json = await resp.text();
-  let data = json ? JSON.parse(json) : undefined;
-  if (resp.ok) {
-    return { data };
-  } else {
-    if (data) {
-      const errors = Object.keys(data).reduce((acc, k) => {
-        // noinspection JSUnresolvedVariable
-        acc[k] = data[k].messages[0];
-        return acc;
-      }, {});
-      return { errors };
-    }
-    return {};
+  return json ? JSON.parse(json) : undefined;
+};
+
+const buildErrors = (resp, data) => {
+  if (!resp.ok && data) {
+    return Object.keys(data).reduce((acc, k) => {
+      // noinspection JSUnresolvedVariable
+      acc[k] = data[k].messages[0]; // only takes the first on purpose
+      return acc;
+    }, {});
   }
+  return undefined;
+};
+
+const call = async (method, path, content) => {
+  const headers = buildHeaders();
+  const fetchOptions = buildFetchOptions(method, headers, content);
+  // noinspection JSCheckFunctionSignatures
+  const resp = await fetch(`${WS_ROOT}${path}`, fetchOptions);
+  throwForKnownErrors(resp);
+  const data = await getData(resp);
+  const errors = buildErrors(resp, data);
+  return { data, errors };
 };
 
 // TODO: DRY UP MANY OF THE METHODS BELOW
@@ -81,13 +100,11 @@ const API = {
   },
 
   async findProjects() {
-    const token = sessionStorage.getItem('token');
-    return await call('GET', '/projects', null, token);
+    return await call('GET', '/projects', null);
   },
 
   async findProjectById(id) {
-    const token = sessionStorage.getItem('token');
-    return await call('GET', '/projects/'+id, null, token);
+    return await call('GET', '/projects/'+id, null);
   },
 
   async findProjectByIdWithReleases(id) {
@@ -98,76 +115,71 @@ const API = {
   },
 
   async createProject(fields) {
-    const token = sessionStorage.getItem('token');
     const { name, company } = fields;
-    return await call('POST', '/projects', { name, company }, token);
+    return await call('POST', '/projects', { name, company });
   },
 
   async updateProject(fields) {
-    const token = sessionStorage.getItem('token');
     const { id, name, company } = fields;
-    return await call('PATCH', '/projects/'+id, { name, company }, token);
+    return await call('PATCH', '/projects/'+id, { name, company });
   },
 
   async createRelease(fields) {
-    const token = sessionStorage.getItem('token');
     const { projectId, name, notes } = fields;
-    return await call('POST', '/releases', { projectId, name, notes }, token);
+    return await call('POST', '/releases', { projectId, name, notes });
   },
 
   async updateRelease(fields) {
-    const token = sessionStorage.getItem('token');
     const { id, name, notes } = fields;
-    return await call('PATCH', '/releases/'+id, { name, notes }, token);
+    return await call('PATCH', '/releases/'+id, { name, notes });
   },
 
-  async findReleaseByIdWithIterations(id) {
-    return Promise.all([
-      API.findReleaseById(id),
-      API.findIterationsByReleaseId(id)
-    ]);
+  async findReleaseByIdWithDetails(id) {
+    // noinspection JSCheckFunctionSignatures
+    const [releaseResp, iterationsResp] = await Promise.all([API.findReleaseById(id), API.findIterationsByReleaseId(id)]);
+    const projectResp = await API.findProjectById(releaseResp.data.projectId);
+    return Promise.resolve([releaseResp, iterationsResp, projectResp]);
   },
 
   async findReleaseById(id) {
-    const token = sessionStorage.getItem('token');
-    return await call('GET', `/releases/${id}`, null, token);
+    return await call('GET', `/releases/${id}`, null);
   },
 
   async findReleasesByProjectId(projectId) {
-    const token = sessionStorage.getItem('token');
-    return await call('GET', `/releases?projectId=${projectId}`, null, token);
+    return await call('GET', `/releases?projectId=${projectId}`, null);
   },
 
   async deleteReleaseById(id) {
-    const token = sessionStorage.getItem('token');
-    return await call('DELETE', `/releases/${id}`, null, token);
+    return await call('DELETE', `/releases/${id}`, null);
   },
 
   async createIteration(fields) {
-    const token = sessionStorage.getItem('token');
     const { releaseId, name, notes } = fields;
-    return await call('POST', '/iterations', { releaseId, name, notes }, token);
+    return await call('POST', '/iterations', { releaseId, name, notes });
   },
 
   async updateIteration(fields) {
-    const token = sessionStorage.getItem('token');
     const { id, name, notes } = fields;
-    return await call('PATCH', `/iterations/${id}`, { name, notes }, token);
+    return await call('PATCH', `/iterations/${id}`, { name, notes });
   },
 
   async findIterationById(id) {
-    const token = sessionStorage.getItem('token');
-    return await call('GET', `/iterations/${id}`, null, token);
+    return await call('GET', `/iterations/${id}`, null);
   },
 
   async findIterationsByReleaseId(releaseId) {
-    const token = sessionStorage.getItem('token');
-    return await call('GET', `/iterations?releaseId=${releaseId}`, null, token);
+    return await call('GET', `/iterations?releaseId=${releaseId}`, null);
   },
 
   async deleteIterationById(id) {
-    const token = sessionStorage.getItem('token');
-    return await call('DELETE', `/iterations/${id}`, null, token);
+    return await call('DELETE', `/iterations/${id}`, null);
+  },
+
+  async findIterationByIdWithDetails(id) {
+    const iterationResp = await API.findIterationById(id);
+    const releaseResp = await API.findReleaseById(iterationResp.data.releaseId);
+    const projectResp = await API.findProjectById(releaseResp.data.projectId);
+    return Promise.resolve([iterationResp, releaseResp, projectResp]);
   },
 
 };

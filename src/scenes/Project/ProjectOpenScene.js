@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import ProjectOpen from '../../components/ProjectOpen';
+import ProjectOpen from '../../components/Project/ProjectOpen';
 
 class ProjectOpenScene extends Component {
 

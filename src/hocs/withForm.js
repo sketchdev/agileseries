@@ -1,9 +1,9 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
 import { NotFoundError, UnauthorizedError } from '../lib/Errors';
-import ProgressScene from '../scenes/ProgressScene';
-import UnexpectedScene from '../scenes/UnexpectedScene';
-import NotFoundScene from '../scenes/NotFoundScene';
+import ProgressScene from '../scenes/Progress/ProgressScene';
+import UnexpectedScene from '../scenes/Error/UnexpectedScene';
+import NotFoundScene from '../scenes/Error/NotFoundScene';
 
 export default function withForm(WrappedComponent, title, fieldsMethod, validateMethod, submitMethod, successPathMethod) {
 
@@ -76,12 +76,12 @@ export default function withForm(WrappedComponent, title, fieldsMethod, validate
           self.handleCall(errors, 'complete');
         } catch (err) {
           if (err instanceof UnauthorizedError) {
-            this.setState({ pending: false, unauthorized: true, submitPhase: 'complete' });
+            this.setState({ errors: { base: 'Unauthorized' }, pending: false, unauthorized: true, submitPhase: 'complete' });
           } else if (err instanceof NotFoundError) {
-            this.setState({ pending: false, notfound: true, submitPhase: 'complete' });
+            this.setState({ errors: { base: 'NotFound' }, pending: false, notfound: true, submitPhase: 'complete' });
           } else {
             console.error(err);
-            this.setState({ pending: false, unexpected: true, submitPhase: 'complete' });
+            this.setState({ errors: { base: 'Unknown' }, pending: false, unexpected: true, submitPhase: 'complete' });
           }
         }
       })();
@@ -101,11 +101,17 @@ export default function withForm(WrappedComponent, title, fieldsMethod, validate
     };
 
     render() {
+      let errors = this.state.errors;
+
       if (this.state.notfound) {
         return <NotFoundScene/>;
       }
       if (this.state.unauthorized) {
-        return <Redirect to={{ pathname: '/login', state: { from: this.props.location } }}/>;
+        if (this.props.location.pathname !== '/login') {
+          return <Redirect to={{ pathname: '/login', state: { from: this.props.location } }}/>;
+        } else {
+          errors = { base: 'Invalid email and/or password.' };
+        }
       }
       if (this.state.unexpected) {
         return <UnexpectedScene/>;
@@ -116,7 +122,7 @@ export default function withForm(WrappedComponent, title, fieldsMethod, validate
       if (this.state.successPath) {
         return <Redirect to={this.state.successPath}/>
       }
-      return <WrappedComponent title={title(this.props)} fields={this.state.fields} errors={this.state.errors} onChange={this.handleInputChange} onSubmit={this.handleSubmit} {...this.props}/>
+      return <WrappedComponent title={title(this.props)} fields={this.state.fields} errors={errors} onChange={this.handleInputChange} onSubmit={this.handleSubmit} {...this.props}/>
     }
 
   }

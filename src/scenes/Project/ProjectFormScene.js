@@ -1,4 +1,4 @@
-import ProjectForm from '../../components/ProjectForm';
+import ProjectForm from '../../components/Project/ProjectForm';
 import { allFieldsRequired } from '../../lib/Validation';
 import API from '../../lib/API';
 import withForm from '../../hocs/withForm';

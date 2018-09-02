@@ -1,9 +1,9 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
 import { NotFoundError, UnauthorizedError } from '../lib/Errors';
-import ProgressScene from '../scenes/ProgressScene';
-import UnexpectedScene from '../scenes/UnexpectedScene';
-import NotFoundScene from '../scenes/NotFoundScene';
+import ProgressScene from '../scenes/Progress/ProgressScene';
+import UnexpectedScene from '../scenes/Error/UnexpectedScene';
+import NotFoundScene from '../scenes/Error/NotFoundScene';
 
 export default function withLookup(WrappedComponent, lookupMethod) {
 
@@ -21,21 +21,23 @@ export default function withLookup(WrappedComponent, lookupMethod) {
     }
 
     componentWillMount() {
-      (async () => {
-        try {
-          const lookup = await lookupMethod.call({}, this.props);
-          this.setState({ lookup, pending: false });
-        } catch (err) {
-          if (err instanceof UnauthorizedError) {
-            this.setState({ unauthorized: true, pending: false });
-          } else if (err instanceof NotFoundError) {
-            this.setState({ notfound: true, pending: false });
-          } else {
-            console.error(err);
-            this.setState({ unexpected: true, pending: false });
+      setTimeout(() => {
+        (async () => {
+          try {
+            const lookup = await lookupMethod.call({}, this.props);
+            this.setState({ lookup, pending: false });
+          } catch (err) {
+            if (err instanceof UnauthorizedError) {
+              this.setState({ unauthorized: true, pending: false });
+            } else if (err instanceof NotFoundError) {
+              this.setState({ notfound: true, pending: false });
+            } else {
+              console.error(err);
+              this.setState({ unexpected: true, pending: false });
+            }
           }
-        }
-      })();
+        })();
+      }, 250);
     }
 
     render() {

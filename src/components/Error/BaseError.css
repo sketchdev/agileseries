@@ -1,0 +1,4 @@
+.base-error {
+  color: var(--color-danger);
+  padding: 0 0 1rem 0;
+}

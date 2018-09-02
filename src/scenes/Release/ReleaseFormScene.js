@@ -1,4 +1,4 @@
-import ReleaseForm from '../../components/ReleaseForm';
+import ReleaseForm from '../../components/Release/ReleaseForm';
 import API from '../../lib/API';
 import withForm from '../../hocs/withForm';
 import validator from 'validator';
