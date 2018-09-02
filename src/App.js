@@ -53,7 +53,7 @@ class App extends React.Component {
                   <PrivateRoute exact path="/projects" component={withLookup(ProjectListScene, API.findProjects)}/>
                   <PrivateRoute exact path="/projects/new" component={ProjectFormScene}/>
                   <PrivateRoute exact path="/projects/:id/edit" component={withLookup(ProjectFormScene, props => API.findProjectById(props.match.params.id))}/>
-                  <PrivateRoute exact path="/projects/:id/open" component={withLookup(ProjectOpenScene, props => API.findProjectByIdWithReleases(props.match.params.id))}/>
+                  <PrivateRoute exact path="/projects/:id/open" component={withLookup(ProjectOpenScene, props => API.findProjectByIdWithDetails(props.match.params.id))}/>
 
                   {/*RELEASES*/}
 

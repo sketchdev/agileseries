@@ -1,11 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import './EmptyList.css';
 
 const EmptyList = props => {
   return (
-    <div>
-      <p>{props.title}</p>
-      <p>{props.subtitle}</p>
+    <div className={'empty-list'}>
+      <div className={'title'}>{props.title}</div>
+      <div className={'subtitle'}>{props.subtitle}</div>
       {props.button}
     </div>
   );

@@ -107,10 +107,11 @@ const API = {
     return await call('GET', '/projects/'+id, null);
   },
 
-  async findProjectByIdWithReleases(id) {
+  async findProjectByIdWithDetails(id) {
     return Promise.all([
       API.findProjectById(id),
-      API.findReleasesByProjectId(id)
+      API.findReleasesByProjectId(id),
+      API.findBacklogsByProjectId(id)
     ]);
   },
 
@@ -151,6 +152,10 @@ const API = {
 
   async deleteReleaseById(id) {
     return await call('DELETE', `/releases/${id}`, null);
+  },
+
+  async findBacklogsByProjectId(projectId) {
+    return await call('GET', `/backlogs?projectId=${projectId}`, null);
   },
 
   async createIteration(fields) {

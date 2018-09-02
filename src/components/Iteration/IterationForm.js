@@ -2,7 +2,6 @@ import React from 'react';
 import Field from '../Form/Field';
 import PropTypes from 'prop-types';
 import PageHeader from '../Page/PageHeader';
-import PageBack from '../Page/PageBack';
 import { Link } from 'react-router-dom';
 import FormActions from '../Form/FormActions';
 
@@ -11,7 +10,6 @@ class ReleaseForm extends React.Component {
   render() {
     return (
       <div className={'scene-container -slim'}>
-        <PageBack to={`/releases/${this.props.fields.releaseId}/open`} title={'Release'}/>
         <PageHeader title={this.props.title}/>
         <form onSubmit={this.props.onSubmit}>
           <input type={'hidden'} name={'projectId'} value={this.props.fields.projectId}/>

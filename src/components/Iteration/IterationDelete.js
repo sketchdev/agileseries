@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import PageHeader from '../Page/PageHeader';
-import PageBack from '../Page/PageBack';
 import FormActions from '../Form/FormActions';
 import { Link } from 'react-router-dom';
 
@@ -10,7 +9,6 @@ class ReleaseForm extends React.Component {
   render() {
     return (
       <div className={'scene-container -slim'}>
-        <PageBack to={`/releases/${this.props.fields.releaseId}/open`} title={'Release'}/>
         <PageHeader title={this.props.title}/>
         <h2>Are you sure you want to delete this iteration?</h2>
         <form onSubmit={this.props.onSubmit}>
