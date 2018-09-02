@@ -11,11 +11,12 @@ const IterationOpen = props => {
   };
   const linkState = { iterationId: props.iteration.id };
   const createStoryButton = <Link className={'button -primary'} to={{ pathname: '/stories/new', state: linkState }}>Create a story</Link>;
+  const backlogButton = <Link className={'button -primary'} to={{ pathname: '/backlog/grab', state: linkState }}>Grab stories from a backlog</Link>;
   if (!props.stories || props.stories.length === 0) {
     return (
       <div>
         <PageHeader title={props.iteration.name || ''} tags={tags}/>
-        <EmptyList title={'No stories for this release.'} subtitle={"Let's plan one so you can get started."} button={createStoryButton}/>
+        <EmptyList title={'No stories for this release.'} subtitle={"Let's plan one so you can get started."} buttons={[createStoryButton, backlogButton]}/>
       </div>
     );
   }

@@ -8,7 +8,7 @@ const BacklogList = props => {
   const state = { projectId: props.projectId };
   const createButton = <Link className={'button -primary'} to={{ pathname: '/backlogs/new', state }}>Create a backlog</Link>;
   if (!props.backlogs || props.backlogs.length === 0) {
-    return <EmptyList title={"No backlogs for this release."} subtitle={"Let's plan one so you can get started."} button={createButton}/>;
+    return <EmptyList title={"No backlogs for this release."} subtitle={"Let's plan one so you can get started."} buttons={[createButton]}/>;
   }
   return (
     <div>

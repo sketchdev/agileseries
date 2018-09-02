@@ -13,3 +13,7 @@
 .empty-list > .subtitle {
   padding: 0 0 2rem 0;
 }
+
+.empty-list > div > a {
+  margin-bottom: 0.8rem;
+}

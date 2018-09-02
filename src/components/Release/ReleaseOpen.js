@@ -15,7 +15,7 @@ const ReleaseOpen = props => {
     return (
       <div>
         <PageHeader title={props.release.name || ''} tags={tags}/>
-        <EmptyList title={title} subtitle={subtitle} button={createIterationButton}/>
+        <EmptyList title={title} subtitle={subtitle} buttons={[createIterationButton]}/>
       </div>
     );
   }

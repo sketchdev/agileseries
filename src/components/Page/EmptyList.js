@@ -7,7 +7,11 @@ const EmptyList = props => {
     <div className={'empty-list'}>
       <div className={'title'}>{props.title}</div>
       <div className={'subtitle'}>{props.subtitle}</div>
-      {props.button}
+      {props.buttons.map((button, index) => {
+        return (
+          <div key={index}>{button}</div>
+        )
+      })}
     </div>
   );
 };
@@ -15,7 +19,7 @@ const EmptyList = props => {
 EmptyList.propTypes = {
   title: PropTypes.string.isRequired,
   subtitle: PropTypes.string.isRequired,
-  button: PropTypes.element.isRequired,
+  buttons: PropTypes.arrayOf(PropTypes.element).isRequired,
 };
 
 export default EmptyList;
