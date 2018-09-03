@@ -184,7 +184,29 @@ const API = {
     const iterationResp = await API.findIterationById(id);
     const releaseResp = await API.findReleaseById(iterationResp.data.releaseId);
     const projectResp = await API.findProjectById(releaseResp.data.projectId);
-    return Promise.resolve([iterationResp, releaseResp, projectResp]);
+    const storiesResp = await API.findStoriesByIterationId(id);
+    return Promise.resolve([iterationResp, releaseResp, projectResp, storiesResp]);
+  },
+
+  async createStory(fields) {
+    return await call('POST', '/stories', fields);
+  },
+
+  async updateStory(fields) {
+    const { id, iterationId, backlogId, title, points, notes } = fields;
+    return await call('PATCH', `/stories/${id}`, { iterationId, backlogId, title, points, notes });
+  },
+
+  async findStoriesByIterationId(iterationId) {
+    return await call('GET', `/stories?iterationId=${iterationId}`, null);
+  },
+
+  async findStoryById(id) {
+    return await call('GET', `/stories/${id}`, null);
+  },
+
+  async deleteStoryById(id) {
+    return await call('DELETE', `/stories/${id}`, null);
   },
 
 };

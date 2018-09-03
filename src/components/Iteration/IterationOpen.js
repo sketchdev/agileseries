@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import EmptyList from '../Page/EmptyList';
 import PageHeader from '../Page/PageHeader';
+import StoryList from '../Story/StoryList';
 
 const IterationOpen = props => {
   const tags = {
@@ -23,7 +24,7 @@ const IterationOpen = props => {
   return (
     <div>
       <PageHeader title={props.iteration.name || ''} tags={tags}>{createStoryButton}</PageHeader>
-      {/*<StoryList stories={props.stories} />*/}
+      <StoryList stories={props.stories} />
     </div>
   );
 };

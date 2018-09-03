@@ -19,6 +19,8 @@ import IterationFormScene from './scenes/Iteration/IterationFormScene';
 import IterationDeleteScene from './scenes/Iteration/IterationDeleteScene';
 import ReleaseOpenScene from './scenes/Release/ReleaseOpenScene';
 import IterationOpenScene from './scenes/Iteration/IterationOpenScene';
+import StoryFormScene from './scenes/Story/StoryFormScene';
+import StoryDeleteScene from './scenes/Story/StoryDeleteScene';
 
 class App extends React.Component {
   render() {
@@ -68,6 +70,12 @@ class App extends React.Component {
                   <PrivateRoute exact path="/iterations/:id/open" component={withLookup(IterationOpenScene, props => API.findIterationByIdWithDetails(props.match.params.id))}/>
                   <PrivateRoute exact path="/iterations/:id/edit" component={withLookup(IterationFormScene, props => API.findIterationById(props.match.params.id))}/>
                   <PrivateRoute exact path="/iterations/:id/delete" component={withLookup(IterationDeleteScene, props => API.findIterationById(props.match.params.id))}/>
+
+                  {/*STORIES*/}
+
+                  <PrivateRoute exact path="/stories/new" component={StoryFormScene}/>
+                  <PrivateRoute exact path="/stories/:id/edit" component={withLookup(StoryFormScene, props => API.findStoryById(props.match.params.id))}/>
+                  <PrivateRoute exact path="/stories/:id/delete" component={withLookup(StoryDeleteScene, props => API.findStoryById(props.match.params.id))}/>
 
                   {/*FALLTHROUGH*/}
 

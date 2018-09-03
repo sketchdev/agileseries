@@ -4,17 +4,17 @@ import PageHeader from '../Page/PageHeader';
 import FormActions from '../Form/FormActions';
 import { Link } from 'react-router-dom';
 
-class IterationDelete extends React.Component {
+class StoryDelete extends React.Component {
 
   render() {
     return (
       <div className={'scene-container -slim'}>
         <PageHeader title={this.props.title}/>
-        <h2>Are you sure you want to delete this iteration?</h2>
+        <h2>Are you sure you want to delete this story?</h2>
         <form onSubmit={this.props.onSubmit}>
           <FormActions>
-            <button className={'-danger'} type={'submit'}>Yes, delete this iteration</button>
-            <Link className={'button'} to={`/releases/${this.props.fields.releaseId}/open`}>Nevermind</Link>
+            <button className={'-danger'} type={'submit'}>Yes, delete this story</button>
+            <Link className={'button'} to={`/iterations/${this.props.fields.iterationId}/open`}>Nevermind</Link>
           </FormActions>
         </form>
       </div>
@@ -23,15 +23,15 @@ class IterationDelete extends React.Component {
 
 }
 
-IterationDelete.propTypes = {
+StoryDelete.propTypes = {
   title: PropTypes.string.isRequired,
   fields: PropTypes.shape({
     id: PropTypes.string,
-    name: PropTypes.string,
+    iterationId: PropTypes.string,
   }),
   errors: PropTypes.objectOf(PropTypes.string),
   onChange: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
 };
 
-export default IterationDelete;
+export default StoryDelete;
