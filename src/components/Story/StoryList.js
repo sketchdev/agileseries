@@ -58,7 +58,11 @@ class StoryList extends React.Component {
                 <td>
                   <div>{story.title}</div>
                   <div>
-                    <Link className={'button -primary'} to={{ pathname: '/tasks/new', state: { storyId: story.id, iterationId: story.iterationId } }}>Add a task</Link>
+                    <Link to={`/stories/${story.id}/edit`}>Edit</Link>
+                    <Link className={'danger'} to={`/stories/${story.id}/delete`}>Delete</Link>
+                  </div>
+                  <div>
+                    <Link className={'button'} to={{ pathname: '/tasks/new', state: { storyId: story.id, iterationId: story.iterationId } }}>Add task »</Link>
                   </div>
                 </td>
                 <td onDragOver={this.handleDragOver} onDrop={this.handleDrop} data-droppable={'true'} data-taskstate={0} data-storyid={story.id}>

@@ -5,6 +5,9 @@ import API from '../../lib/API';
 class IterationOpenScene extends React.Component {
 
   handleTaskStateChange = async (storyId, id, taskState) => {
+    // TODO: show progress
+    // TODO: confirm save
+    // TODO: handle errors
     await API.updateTask({ storyId, id, state: taskState });
   };
 

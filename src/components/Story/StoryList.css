@@ -24,10 +24,17 @@
   vertical-align: top;
 }
 
-.story-board td:nth-child(1) .button.-primary {
+.story-board td:nth-child(1) a {
   display: inline-block;
+  margin: 0.5rem 0.5rem 0 0;
+  font-size: 0.85rem;
+  font-weight: 400;
+}
+
+.story-board td:nth-child(1) a.button {
+  display: block;
   padding: 0.25rem 0.8rem;
   text-transform: uppercase;
   font-size: 0.8rem;
-  margin: 0.5rem 0;
+  text-align: center;
 }

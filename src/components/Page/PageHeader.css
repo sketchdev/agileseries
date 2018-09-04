@@ -7,7 +7,7 @@
 }
 
 .page-header > .title, .page-header > .actions {
-  flex: 1 0 auto;
+  flex: 1 1 auto;
 }
 
 .page-header > .title > h1 {
