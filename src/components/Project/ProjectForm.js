@@ -2,7 +2,6 @@ import React from 'react';
 import Field from '../Form/Field';
 import PropTypes from 'prop-types';
 import PageHeader from '../Page/PageHeader';
-import PageBack from '../Page/PageBack';
 import FormActions from '../Form/FormActions';
 import { Link } from 'react-router-dom';
 
@@ -11,7 +10,6 @@ class ProjectForm extends React.Component {
   render() {
     return (
       <div className={'scene-container -slim'}>
-        <PageBack to={'/projects'} title={'Projects'}/>
         <PageHeader title={this.props.title}/>
         <form onSubmit={this.props.onSubmit}>
           <Field label={'Name'} type={'text'} name={'name'} error={this.props.errors.name} onChange={this.props.onChange} value={this.props.fields.name} autoFocus={true}/>

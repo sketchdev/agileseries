@@ -24,7 +24,7 @@ const IterationOpen = props => {
   return (
     <div>
       <PageHeader title={props.iteration.name || ''} tags={tags}>{createStoryButton}</PageHeader>
-      <StoryList stories={props.stories} />
+      <StoryList stories={props.stories} onTaskStateChange={props.onTaskStateChange} />
     </div>
   );
 };
@@ -34,6 +34,7 @@ IterationOpen.propTypes = {
   iteration: PropTypes.object.isRequired,
   release: PropTypes.object.isRequired,
   project: PropTypes.object.isRequired,
+  onTaskStateChange: PropTypes.func.isRequired,
 };
 
 export default IterationOpen;

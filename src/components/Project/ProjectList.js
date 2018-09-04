@@ -3,16 +3,17 @@ import PropTypes from 'prop-types';
 import ProjectListItem from './ProjectListItem';
 import { Link } from 'react-router-dom';
 import PageHeader from '../Page/PageHeader';
+import EmptyList from '../Page/EmptyList';
 
 const ProjectList = props => {
   if (props.projects.length === 0) {
+    const createButton = <Link className={'button -primary'} to={'/projects/new'}>Create a project</Link>;
     return (
       <div>
-        <p>No projects found.</p>
-        <p>Would you like to create one now?</p>
-        <Link to={'/projects/new'}>Create a project</Link>
+        <PageHeader title={'Projects'}/>
+        <EmptyList title={'No projects found'} subtitle={'Would you like to create one now?'} buttons={[createButton]}/>
       </div>
-    )
+    );
   }
   return (
     <div>

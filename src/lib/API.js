@@ -1,5 +1,6 @@
 import 'whatwg-fetch';
 import { NotFoundError, UnauthorizedError } from './Errors';
+import uuid from 'uuid/v4';
 
 // TODO: MAKE THIS AN ENV VAR
 const WS_ROOT = 'http://localhost:3001';
@@ -207,6 +208,34 @@ const API = {
 
   async deleteStoryById(id) {
     return await call('DELETE', `/stories/${id}`, null);
+  },
+
+  async createTask(fields) {
+    const { storyId, ...task } = fields;
+    const storyResp = await this.findStoryById(storyId);
+    const { data: story } = storyResp;
+    const tasks = (story.tasks || []);
+    task.id = uuid();
+    task.state = 0;
+    tasks.push(task);
+    return await call('PATCH', `/stories/${storyId}`, { tasks });
+  },
+
+  async updateTask(fields) {
+    const { storyId, id, ...doc } = fields;
+    const storyResp = await this.findStoryById(storyId);
+    const { data: story } = storyResp;
+    const tasks = (story.tasks || []);
+    const existingTaskIndex = tasks.findIndex(task => task.id === id);
+    tasks[existingTaskIndex] = Object.assign(tasks[existingTaskIndex], doc);
+    return await call('PATCH', `/stories/${storyId}`, { tasks });
+  },
+
+  async findTaskById(storyId, id) {
+    const storyResp = await this.findStoryById(storyId);
+    const { data: story } = storyResp;
+    const task = (story.tasks || []).find(task => task.id === id);
+    return { data: task };
   },
 
 };
